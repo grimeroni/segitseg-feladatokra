@@ -80,38 +80,37 @@ Nagy vonalakban hogy miről is szól:
 MINDENEK ELŐTT SZERETNÉM MEGEMLÍTENI, HOGY EHHEZ KELLENI FOG A DOCKERES
 FIÓKOD IS! Úgyhogy ne felejtsük el a vizsga napján a nevet és a jelszót 
 
-1. Docker telepítése:
-a. Ha van a github-on külön erre repo, akkor szokás szerint jöhet a
-git clone https://github.com/fiokod/dockermc és utána jöhet a 
-sudo bash docker… (nevét nem tudom fejből, úgyhogy tabulátor)
+//1. Docker telepítése:
+//a. Ha van a github-on külön erre repo, akkor szokás szerint jöhet a
+//git clone https://github.com/fiokod/dockermc és utána jöhet a 
+//sudo bash docker… (nevét nem tudom fejből, úgyhogy tabulátor)
 
-b. Ha nem lenne githubodon, akkor jönnek az újabb imasorok:
-FROM ubuntu:16.04
-MAINTAINER dockeresneved
-RUN apt-get –y update \
-&& apt-get –y upgrade \
-&& apt-get –y install mc \
-&& apt-get –y clean
-WORKDIR /root
+//b. Ha nem lenne githubodon, akkor jönnek az újabb imasorok:
+//FROM ubuntu:16.04
+//MAINTAINER dockeresneved
+//RUN apt-get –y update \
+//&& apt-get –y upgrade \
+//&& apt-get –y install mc \
+//&& apt-get –y clean
+//WORKDIR /root
 
-2. Webszerver – lánykori nevén NGINX:
-Itt annyit szeretnék mondani, hogy githubomon van egy dockerngnix repo, ahol egy
-docker-install.sh cucc van. Ebben benne van a Docker telepítése is, de leírom ide a
-parancsokat:
-sudo apt update
-sudo apt-get install –y \
-apt-transport-https \
-ca-certificates \
-curl \
-software-properties-common
-curl –fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo apt-key fingerprint 0EBFCD88
-sudo add-apt-repository \
-’’dep [arch=amd64] https://download.docker.com/linux/ubuntu \
-$(lsb_release –cs) \
-stable ’’
-sudo apt update
-sudo apt install –y docker-ce
+
+EZ AZ EGÉSZ DOCKER FELADAT ---------------------------------------------------------------------------------------
+2. A saját dockerninx repomra alakítva leírom az ezek után történő varázs sorokat is.
+
+git clone https....../grimeroni/nginxVIZSGA.git
+cd nginxVIZSGA
+
+SUDO BASH docker-install.sh
+
+cd nginxVIZSGA
+
+sudo docker image build . -t valami
+sudo docker container run –d –p 80:80 (a konténer build számának az első 4 számjegye)
+
+
+
+
 
 
 Én ezek után csak egy dolgot szeretnék mondani: szopás ha nem gitről szedünk le
@@ -127,6 +126,9 @@ CMD [’’nginx’’, ’’-g’’, ’’daemon off;’’]
 rm –rf dockerngnix
 git clone dockerngnix.git
 cd dockerngnix
+
+SUDO BASH docker-install.sh
+
 sudo docker image build . –t valami
 sudo container run –d –p 80:80 (a konténer build számának az első 4 számjegye)
 4. Ezek után jöhet a gép IP címe (ifconfig és többi paranccsal kideríthető) és látszik is az oldalad
